@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>rizz.wtf — Tamwaki</title>
+  <style>
+    /* Reset and base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000000 80%);
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.3em;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #ff3f8b;
+      text-shadow: 0 0 10px #ff3f8b, 0 0 30px #ff3f8b;
+    }
+
+    p.subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 1.2em;
+      color: #ddd;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+
+    a.youtube-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff3f8b, #ff7cac);
+      color: white;
+      padding: 14px 30px;
+      border-radius: 40px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(255, 63, 139, 0.5);
+      transition: background 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+    a.youtube-btn:hover {
+      background: linear-gradient(135deg, #ff7cac, #ff3f8b);
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 124, 172, 0.7);
+    }
+
+    /* Spotlight effect */
+    .spotlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+      filter: drop-shadow(0 0 15px #ff3f8b);
+      mix-blend-mode: screen;
+      transition: left 0.05s ease, top 0.05s ease;
+      z-index: 1;
+    }
+
+    /* Profile Image Circle */
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 4px solid #ff3f8b;
+      overflow: hidden;
+      margin-bottom: 1.5em;
+      box-shadow: 0 0 15px #ff3f8b;
+      position: relative;
+      z-index: 2;
+      background: black;
+    }
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: drop-shadow(0 0 5px #ff3f8b);
+      transition: transform 0.3s ease;
+    }
+    .profile-pic:hover img {
+      transform: scale(1.1) rotate(3deg);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+      }
+      a.youtube-btn {
+        font-size: 1.1rem;
+        padding: 12px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="spotlight" id="spotlight"></div>
+
+  <div class="profile-pic" aria-label="Tamwaki profile picture">
+    <img
+      src="https://yt3.ggpht.com/ytc/AKedOLQunWzXZf5whVxWb_-FscgrC9kbvRQoxM-O9Q=s176-c-k-c0x00ffffff-no-rj"
+      alt="Tamwaki YouTube Channel Picture"
+      loading="lazy"
+    />
+  </div>
+
+  <h1>Certified Rizz Dealer</h1>
+  <p class="subtitle">Featuring <strong>Tamwaki</strong></p>
+  <a
+    class="youtube-btn"
+    href="https://www.youtube.com/@tamwaki"
+    target="_blank"
+    rel="noopener noreferrer"
+    >▶️ Watch Tamwaki on YouTube</a
+  >
+
+  <script>
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', (e) => {
+      spotlight.style.left = e.clientX - 160 + 'px';
+      spotlight.style.top = e.clientY - 160 + 'px';
+    });
+  </script>
+</body>
+</html>
