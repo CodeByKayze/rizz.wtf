@@ -63,6 +63,41 @@ const fallbackMessages = [
     "W REDSOW"
 ];
 
+let currentFallback = fallbackMessages[0];
+
+function rotateFallback() {
+    const now = new Date();
+    const hour = now.getHours();
+    const day = now.getDay(); // 0=Sun, 5=Fri,6=Sat
+
+    if(hour >= 2){ // Now sleeping after 2 AM EST
+        if(day === 5 || day === 6 || day === 0){
+            // Weekend exception: up with Mel after 3 AM
+            if(hour >= 3){
+                currentFallback = "Up with Mel at 3 AM…";
+            } else {
+                currentFallback = getRandomFallback();
+            }
+        } else {
+            currentFallback = "Sleeping…";
+        }
+    } else {
+        // Normal rotation
+        let next;
+        do {
+            next = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+        } while(next === currentFallback);
+        currentFallback = next;
+    }
+}
+
+function getRandomFallback() {
+    return fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+}
+
+// Rotate fallback every 7 seconds
+setInterval(rotateFallback, 7000);
+
 function getStatusColor(status) {
     switch(status){
         case 'online': return '#43b581';
@@ -70,10 +105,6 @@ function getStatusColor(status) {
         case 'dnd': return '#f04747';
         default: return '#747f8d';
     }
-}
-
-function getRandomFallback() {
-    return fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
 }
 
 async function fetchStatus(){
@@ -117,9 +148,9 @@ async function fetchStatus(){
         } else if(discord.activities.length > 0){
             const game = discord.activities.find(a => a.type === 0);
             if(game) html += `<div class="activity">🎮 Playing: ${game.name}</div>`;
-            else html += `<div class="activity">${getRandomFallback()}</div>`;
+            else html += `<div class="activity">${currentFallback}</div>`;
         } else {
-            html += `<div class="activity">${getRandomFallback()}</div>`;
+            html += `<div class="activity">${currentFallback}</div>`;
         }
 
         statusDiv.innerHTML = html;
@@ -130,6 +161,7 @@ async function fetchStatus(){
     }
 }
 
+// Fetch every second for live Spotify progress
 fetchStatus();
 setInterval(fetchStatus, 1000);
 </script>
