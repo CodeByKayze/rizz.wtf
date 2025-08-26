@@ -95,8 +95,8 @@ function getRandomFallback() {
     return fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
 }
 
-// Rotate fallback every 7 seconds
-setInterval(rotateFallback, 7000);
+// Rotate fallback every 5 minute's
+setInterval(rotateFallback, 300000);
 
 function getStatusColor(status) {
     switch(status){
