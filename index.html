@@ -1,31 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>rizz.wtf</title>
-  <style>
+<meta charset="UTF-8">
+<title>Rizz.wtf</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
     body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 20px;
-      color: #222;
-      background-color: #fff;
-      line-height: 1.6;
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#0a0a0a;
+        font-family:'Share Tech Mono', monospace;
+        color:#ccc;
     }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5em;
+    .container {
+        padding:30px 40px;
+        background: rgba(255,255,255,0.02);
+        border-radius:12px;
+        border:1px solid #222;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        min-width:300px;
     }
-    p {
-      font-size: 1.1rem;
-      color: #555;
+    h1 { margin:0 0 15px 0; color:#eee; font-size:2.5rem; }
+    .profile {
+        display:flex; align-items:center; gap:10px; margin-bottom:15px;
     }
-  </style>
+    .pfp { width:60px; height:60px; border-radius:50%; border:2px solid #444; }
+    .status-dot { width:15px; height:15px; border-radius:50%; display:inline-block; border:2px solid #0a0a0a; margin-left:-15px; }
+    .username { font-size:1.2rem; color:#eee; }
+    .activity { font-size:1rem; color:#aaa; text-align:center; margin-top:10px; }
+    .spotify-card {
+        display:flex; align-items:center; background:#111; padding:10px; border-radius:8px; gap:10px;
+        width:100%;
+    }
+    .spotify-card img { width:60px; height:60px; border-radius:4px; }
+    .spotify-info { display:flex; flex-direction:column; text-align:left; overflow:hidden; }
+    .spotify-info .song { font-weight:bold; color:#eee; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .spotify-info .artist { font-size:0.9rem; color:#aaa; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .progress-bar { height:4px; background:#43b581; border-radius:2px; margin-top:4px; }
+</style>
 </head>
 <body>
-  <h1>rizz.wtf</h1>
-  <p>This is a simple website.</p>
+<div class="container">
+    <h1>Owned by Kayze</h1>
+    <div id="discord-status">
+        <p>Loading Discord status...</p>
+    </div>
+</div>
+
+<script>
+const userId = "721305810365317150";
+const statusDiv = document.getElementById("discord-status");
+
+const fallbackMessages = [
+    "Chilling…",
+    "Talking to Mel…",
+    "Thinking about life…",
+    "W REDSOW"
+];
+
+function getStatusColor(status) {
+    switch(status){
+        case 'online': return '#43b581';
+        case 'idle': return '#faa61a';
+        case 'dnd': return '#f04747';
+        default: return '#747f8d';
+    }
+}
+
+function getRandomFallback() {
+    return fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
+}
+
+async function fetchStatus(){
+    try{
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+        const data = await res.json();
+        const discord = data.data;
+
+        const avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${discord.discord_user.avatar}.png?size=256`;
+        const username = `${discord.discord_user.username}#${discord.discord_user.discriminator}`;
+        const statusColor = getStatusColor(discord.discord_status);
+
+        let html = `
+            <div class="profile">
+                <img class="pfp" src="${avatarUrl}" alt="Profile Picture">
+                <span class="status-dot" style="background-color:${statusColor}"></span>
+                <span class="username">${username}</span>
+            </div>
+        `;
+
+        if(discord.listening_to_spotify && discord.spotify){
+            const song = discord.spotify.song;
+            const artist = discord.spotify.artist;
+            const albumArt = discord.spotify.album_art_url;
+
+            const start = discord.spotify.timestamps.start;
+            const end = discord.spotify.timestamps.end;
+            const now = Date.now();
+            let progress = Math.min(Math.max((now - start)/(end-start),0),1) * 100;
+
+            html += `
+            <div class="spotify-card">
+                <img src="${albumArt}" alt="Album Art">
+                <div class="spotify-info">
+                    <div class="song">${song}</div>
+                    <div class="artist">${artist}</div>
+                    <div class="progress-bar" style="width:${progress}%"></div>
+                </div>
+            </div>
+            `;
+        } else if(discord.activities.length > 0){
+            const game = discord.activities.find(a => a.type === 0);
+            if(game) html += `<div class="activity">🎮 Playing: ${game.name}</div>`;
+            else html += `<div class="activity">${getRandomFallback()}</div>`;
+        } else {
+            html += `<div class="activity">${getRandomFallback()}</div>`;
+        }
+
+        statusDiv.innerHTML = html;
+
+    } catch(err){
+        console.error(err);
+        statusDiv.innerHTML = `<p>Unable to load Discord status.</p>`;
+    }
+}
+
+fetchStatus();
+setInterval(fetchStatus, 1000);
+</script>
 </body>
 </html>
