@@ -5,115 +5,218 @@
 <title>Rizz.wtf</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-    body {
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:#0a0a0a;
-        font-family:'Share Tech Mono', monospace;
-        color:#ccc;
-    }
-    .container {
-        padding:30px 40px;
-        background: rgba(255,255,255,0.02);
-        border-radius:12px;
-        border:1px solid #222;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        min-width:300px;
-    }
-    .profile {
-        display:flex; align-items:center; gap:10px; margin-bottom:15px;
-    }
-    .pfp { width:60px; height:60px; border-radius:50%; border:2px solid #444; }
-    .status-dot { width:15px; height:15px; border-radius:50%; display:inline-block; border:2px solid #0a0a0a; margin-left:-15px; }
-    .username { font-size:1.2rem; color:#eee; }
-    .activity { font-size:1rem; color:#aaa; text-align:center; margin-top:10px; }
-    .spotify-card {
-        display:flex; align-items:center; background:#111; padding:10px; border-radius:8px; gap:10px;
-        width:100%;
-    }
-    .spotify-card img { width:60px; height:60px; border-radius:4px; }
-    .spotify-info { display:flex; flex-direction:column; text-align:left; overflow:hidden; }
-    .spotify-info .song { font-weight:bold; color:#eee; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .spotify-info .artist { font-size:0.9rem; color:#aaa; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .progress-bar { height:4px; background:#43b581; border-radius:2px; margin-top:4px; }
 
-    /* Melody section */
-    .love-message {
-        margin-top: 20px;
-        padding: 6px 12px;
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0a0a0a;
+        font-family: 'Share Tech Mono', monospace;
+        color: #ccc;
+    }
+
+    .code-symbol {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 1.4rem;
+        color: #888;
+    }
+
+    .windows-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 26px;
+        height: 26px;
+        fill: #888;
+        opacity: 0.8;
+        transition: 0.2s;
+    }
+    .windows-icon:hover {
+        opacity: 1;
+        fill: #ccc;
+    }
+
+    .container {
+        padding: 25px 35px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 14px;
+        border: 1px solid #222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 320px;
+    }
+
+    .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+
+    .profile-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .pfp {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid #333;
+    }
+
+    .status-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 2px solid #0a0a0a;
+        margin-left: -15px;
+    }
+
+    .username {
         font-size: 1.2rem;
-        font-weight: bold;
-        color: #ff4da6;
-        border: 1px solid #ff4da6;
-        border-radius: 6px;
-        background: rgba(255, 77, 166, 0.08);
+        color: #ddd;
+    }
+
+    .love-label {
+        font-size: 0.9rem;
+        color: #ff5a91;
+        margin-top: 2px;
+    }
+
+    .activity {
+        font-size: 1rem;
+        color: #aaa;
         text-align: center;
+        margin-top: 10px;
+        min-height: 20px;
+    }
+
+    .zzz {
+        display: inline-block;
+        color: #777;
+        font-size: 1.1rem;
+        animation: zzzAnim 2s infinite ease-in-out;
+    }
+    @keyframes zzzAnim {
+        0% { opacity: 0; transform: translateY(0); }
+        50% { opacity: 1; transform: translateY(-6px); }
+        100% { opacity: 0; transform: translateY(-12px); }
+    }
+
+    .spotify-card {
+        display: flex;
+        align-items: center;
+        background: #111;
+        padding: 10px;
+        border-radius: 8px;
+        gap: 10px;
+        width: 100%;
+        border: 1px solid #222;
+    }
+
+    .spotify-card img {
+        width: 60px;
+        height: 60px;
+        border-radius: 6px;
+    }
+
+    .spotify-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        overflow: hidden;
+    }
+
+    .spotify-info .song {
+        font-weight: bold;
+        color: #eee;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .spotify-info .artist {
+        font-size: 0.9rem;
+        color: #aaa;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .progress-bar {
+        height: 4px;
+        background: #43b581;
+        border-radius: 2px;
+        margin-top: 4px;
+    }
+
+    .time-display {
+        margin-top: 14px;
+        font-size: 0.9rem;
+        color: #bbb;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .offline-info {
+        margin-top: 6px;
+        font-size: 0.85rem;
+        color: #888;
+    }
+
+    .time-display svg {
+        width: 16px;
+        height: 16px;
+        fill: #bbb;
     }
 </style>
 </head>
 <body>
-<div class="container">
-    <div id="discord-status">
-        <p>Loading Discord status...</p>
-    </div>
+    <div class="code-symbol">&lt;/&gt;</div>
+    <svg class="windows-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M0 93.7l183.6-25.1v186.4H0V93.7zm0 324.6l183.6 25.1V256H0v162.3zm204.1 27.5l243.9 33.3V256H204.1v189.8zm0-404.4v189.8h243.9V60.2L204.1 41.4z"/>
+    </svg>
 
-    <!-- Melody Section -->
-    <div class="love-message">I love my pretty girl Melody 💕</div>
-</div>
+    <div class="container">
+        <div id="discord-status">
+            <div class="profile">
+                <div class="profile-top">
+                    <img class="pfp" src="" alt="Profile Picture">
+                    <span class="status-dot"></span>
+                    <span class="username"></span>
+                </div>
+                <div class="love-label">Sarah 💗</div>
+            </div>
+            <div class="activity"></div>
+        </div>
+        <div class="time-display" id="time-display">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532 0-200-89.468-200-200S145.468 56 256 56s200 89.468 200 200-89.468 200-200 200zm8-344v104h88c13.255 0 24 10.745 24 24s-10.745 24-24 24H248c-13.255 0-24-10.745-24-24V112c0-13.255 10.745-24 24-24s24 10.745 24 24z"/>
+            </svg>
+            <span id="time-text">--:-- -- EST</span>
+        </div>
+        <div class="offline-info" id="offline-info"></div>
+    </div>
 
 <script>
 const userId = "721305810365317150";
 const statusDiv = document.getElementById("discord-status");
+const timeText = document.getElementById("time-text");
+const offlineInfo = document.getElementById("offline-info");
 
-const fallbackMessages = [
-    "Chilling…",
-    "Talking to Mel…",
-    "Thinking about life…",
-    "W REDSOW"
-];
-
-let currentFallback = fallbackMessages[0];
-
-function rotateFallback() {
-    const now = new Date();
-    const hour = now.getHours();
-    const day = now.getDay(); // 0=Sun, 5=Fri,6=Sat
-
-    if(hour >= 2){ // Now sleeping after 2 AM EST
-        if(day === 5 || day === 6 || day === 0){
-            // Weekend exception: up with Mel after 3 AM
-            if(hour >= 3){
-                currentFallback = "Up with Mel at 3 AM…";
-            } else {
-                currentFallback = getRandomFallback();
-            }
-        } else {
-            currentFallback = "Sleeping…";
-        }
-    } else {
-        // Normal rotation
-        let next;
-        do {
-            next = fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
-        } while(next === currentFallback);
-        currentFallback = next;
-    }
-}
-
-function getRandomFallback() {
-    return fallbackMessages[Math.floor(Math.random() * fallbackMessages.length)];
-}
-
-// Rotate fallback every 5 minutes
-setInterval(rotateFallback, 300000);
+let offlineStart = null;
 
 function getStatusColor(status) {
-    switch(status){
+    switch (status) {
         case 'online': return '#43b581';
         case 'idle': return '#faa61a';
         case 'dnd': return '#f04747';
@@ -121,8 +224,25 @@ function getStatusColor(status) {
     }
 }
 
-async function fetchStatus(){
-    try{
+function formatDuration(ms) {
+    let sec = Math.floor(ms / 1000);
+    let h = Math.floor(sec / 3600);
+    let m = Math.floor((sec % 3600) / 60);
+    return `${h > 0 ? h + "h " : ""}${m}m`;
+}
+
+function getWakeUpETA() {
+    const now = new Date();
+    const day = now.getDay();
+    let wakeHour = (day === 0 || day === 6) ? 11 : 8;
+    let wake = new Date(now);
+    wake.setHours(wakeHour, 0, 0, 0);
+    if (now > wake) wake.setDate(wake.getDate() + 1);
+    return wake.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }) + " EST";
+}
+
+async function fetchStatus() {
+    try {
         const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
         const data = await res.json();
         const discord = data.data;
@@ -131,53 +251,48 @@ async function fetchStatus(){
         const username = `${discord.discord_user.username}#${discord.discord_user.discriminator}`;
         const statusColor = getStatusColor(discord.discord_status);
 
-        let html = `
-            <div class="profile">
-                <img class="pfp" src="${avatarUrl}" alt="Profile Picture">
-                <span class="status-dot" style="background-color:${statusColor}"></span>
-                <span class="username">${username}</span>
-            </div>
-        `;
+        const profilePic = statusDiv.querySelector(".pfp");
+        const nameSpan = statusDiv.querySelector(".username");
+        const statusDot = statusDiv.querySelector(".status-dot");
 
-        if(discord.listening_to_spotify && discord.spotify){
-            const song = discord.spotify.song;
-            const artist = discord.spotify.artist;
-            const albumArt = discord.spotify.album_art_url;
+        profilePic.src = avatarUrl;
+        nameSpan.textContent = username;
+        statusDot.style.backgroundColor = statusColor;
 
-            const start = discord.spotify.timestamps.start;
-            const end = discord.spotify.timestamps.end;
-            const now = Date.now();
-            let progress = Math.min(Math.max((now - start)/(end-start),0),1) * 100;
+        let activityMessage = "Chilling…";
 
-            html += `
-            <div class="spotify-card">
-                <img src="${albumArt}" alt="Album Art">
-                <div class="spotify-info">
-                    <div class="song">${song}</div>
-                    <div class="artist">${artist}</div>
-                    <div class="progress-bar" style="width:${progress}%"></div>
-                </div>
-            </div>
-            `;
-        } else if(discord.activities.length > 0){
-            const game = discord.activities.find(a => a.type === 0);
-            if(game) html += `<div class="activity">🎮 Playing: ${game.name}</div>`;
-            else html += `<div class="activity">${currentFallback}</div>`;
+        if (discord.discord_status === "offline") {
+            activityMessage = `Sleeping… <span class="zzz">Zzz</span>`;
+            if (!offlineStart) offlineStart = Date.now();
         } else {
-            html += `<div class="activity">${currentFallback}</div>`;
+            offlineStart = null;
         }
 
-        statusDiv.innerHTML = html;
+        statusDiv.querySelector(".activity").innerHTML = activityMessage;
 
-    } catch(err){
+        if (discord.discord_status === "offline" && offlineStart) {
+            const duration = formatDuration(Date.now() - offlineStart);
+            offlineInfo.textContent = `Offline for ${duration} | ETA: ~${getWakeUpETA()}`;
+        } else {
+            offlineInfo.textContent = "";
+        }
+
+    } catch (err) {
         console.error(err);
-        statusDiv.innerHTML = `<p>Unable to load Discord status.</p>`;
+        statusDiv.querySelector(".activity").textContent = "Unable to load Discord status.";
     }
 }
 
-// Fetch every second for live Spotify progress 
+function updateTime() {
+    const now = new Date();
+    const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true, timeZone: 'America/New_York' };
+    timeText.textContent = now.toLocaleTimeString('en-US', options) + ' EST';
+}
+
 fetchStatus();
 setInterval(fetchStatus, 1000);
+updateTime();
+setInterval(updateTime, 1000);
 </script>
 </body>
 </html>
